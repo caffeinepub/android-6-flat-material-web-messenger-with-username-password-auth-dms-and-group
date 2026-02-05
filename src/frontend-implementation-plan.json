@@ -1,0 +1,267 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Android 6 Material-style web messenger (frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Apply an Android 6-inspired flat Material theme across the app with consistent English UI copy.",
+      "acceptanceCriteria": [
+        "App uses a cohesive flat Material-style theme across all screens",
+        "Primary navigation and key actions use Material-like components (app bar, FAB or prominent action button, card/list styling)",
+        "All visible UI copy is in English"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styling tokens (colors, typography, spacing, surfaces) to evoke an Android 6 flat Material look; set base font stack, surface elevations (flat), and default element styles to ensure consistent English UI across screens."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions (color tokens, radii, shadows, typography) to match the Android 6 flat Material theme and align utility usage with the new CSS variables defined in frontend/src/index.css."
+        },
+        {
+          "path": "frontend/src/components/material/AppShell.tsx",
+          "operation": "create",
+          "description": "Create a reusable Material-like app shell (top app bar, content container, optional prominent action area) for consistent layout and navigation styling across authenticated and unauthenticated screens. Use shadcn-ui primitives (e.g., Button, Card) where helpful; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the root app component that applies the AppShell layout, global theme classes, and routes to all screens so the theme is consistently visible."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement Register/Login screens for username/password authentication and persist a session across refresh with logout support.",
+      "acceptanceCriteria": [
+        "User can register with a username and password and then log in with those credentials",
+        "Frontend persists an auth session across page refresh (until logout)",
+        "Logout clears the stored session and returns the user to the Login screen",
+        "Incorrect credentials show an English error message and do not authenticate the user"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/auth/session.ts",
+          "operation": "create",
+          "description": "Implement frontend session persistence (store/load/clear) for an authenticated session in localStorage (or equivalent) and expose helpers used across the app (e.g., getSession, setSession, clearSession)."
+        },
+        {
+          "path": "frontend/src/auth/useAuth.ts",
+          "operation": "create",
+          "description": "Create an auth hook/context that drives the Register/Login/Logout flow, tracks authenticated state, and attaches auth metadata to backend calls where needed. Use shadcn-ui components for form UX and error messaging; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "create",
+          "description": "Create an English Login screen with username/password inputs, submit handling, and clear English error messages on incorrect credentials. Use shadcn-ui form-friendly components (Input, Button, Card) and Material-like spacing; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/RegisterPage.tsx",
+          "operation": "create",
+          "description": "Create an English Register screen with username/password inputs, submit handling, and clear English error messages (e.g., username already taken). Use shadcn-ui components (Input, Button, Card); verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/RequireAuth.tsx",
+          "operation": "create",
+          "description": "Add a simple route guard wrapper that redirects unauthenticated users to the Login screen and ensures authenticated-only app data is not shown without a session."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Login and Register routes into the app, add logout action in the app bar when authenticated, and ensure logout clears stored session and returns to Login."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Provide direct messaging UI to start/open 1:1 conversations and view/send messages.",
+      "acceptanceCriteria": [
+        "User can start/open a DM with another username",
+        "User can send a DM message and see it appear in the thread",
+        "User can view message history for a DM thread",
+        "DM list shows recent conversations and last message preview/time (as available)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/chat/types.ts",
+          "operation": "create",
+          "description": "Define frontend types/models for conversations (DM vs Group), message view models, and list item metadata (last preview, timestamp) used by the UI."
+        },
+        {
+          "path": "frontend/src/chat/hooks/useDirectMessages.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to fetch DM history for a selected conversation and to send a DM message, including cache updates for immediate thread display. Ensure all UI copy is English."
+        },
+        {
+          "path": "frontend/src/components/chat/NewDmDialog.tsx",
+          "operation": "create",
+          "description": "Create a dialog/screen to start a new DM by entering a username and opening the resulting thread. Use shadcn-ui dialog/input/button components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/chat/ThreadView.tsx",
+          "operation": "create",
+          "description": "Create a shared thread view component that renders messages (sender alignment, timestamps, flat list styling) and provides a composer to send new messages. Use shadcn-ui components where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/chat/ConversationList.tsx",
+          "operation": "create",
+          "description": "Render a conversation list item UI for DMs (and later groups) with last message preview/time as available and visual distinction by type. Use flat Material list styling; verify shadcn-ui component usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ChatHomePage.tsx",
+          "operation": "create",
+          "description": "Add the main chat home page that can open a DM thread and integrate the DM list + thread view. This page will later host group chats in the same layout."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the ChatHomePage into authenticated routing and ensure the New DM entry point is reachable from the chat home UI."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Provide group chat UI to create groups, add members by username, and view/send group messages with access-aware UX.",
+      "acceptanceCriteria": [
+        "User can create a group chat with a name",
+        "User can add at least one other user to a group by username",
+        "Group members can send messages and view group message history",
+        "Non-members cannot access a group’s messages"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/chat/hooks/useGroupChats.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to create group chats, fetch group message history, send group messages, and add participants. Handle authorization failures gracefully with English error messages."
+        },
+        {
+          "path": "frontend/src/components/chat/CreateGroupDialog.tsx",
+          "operation": "create",
+          "description": "Create a UI flow to create a group with a name and then add members by username. Use shadcn-ui Dialog, Input, Button, and list components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/chat/GroupMembersPanel.tsx",
+          "operation": "create",
+          "description": "Add a small panel/section for viewing group membership actions (add member by username) and surface access-related errors in English. Use shadcn-ui components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ChatHomePage.tsx",
+          "operation": "modify",
+          "description": "Extend the chat home to include group conversations in the list, allow selecting a group thread, and expose a clear entry point to create a new group and manage members."
+        },
+        {
+          "path": "frontend/src/components/chat/ConversationList.tsx",
+          "operation": "modify",
+          "description": "Update the list to distinguish DM vs Group (icon/label) and to handle selection for group threads."
+        },
+        {
+          "path": "frontend/src/components/chat/ThreadView.tsx",
+          "operation": "modify",
+          "description": "Support rendering/sending messages for group threads (in addition to DMs) while reusing the shared message UI and composer."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add a responsive chat home layout with conversation list + active thread (split-pane on wide screens, navigable panes on narrow screens).",
+      "acceptanceCriteria": [
+        "On wide screens, conversation list and active thread are visible together",
+        "On narrow screens, user can navigate between conversation list and thread view",
+        "Conversation list distinguishes DM vs Group (label/icon)",
+        "There is a clear entry point to start a new DM and to create a new group"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/chat/ResponsiveChatLayout.tsx",
+          "operation": "create",
+          "description": "Implement a responsive layout component that shows a split-pane (list + thread) on wide screens and a single-pane with back navigation on narrow screens. Use shadcn-ui components for buttons and sheet/drawer behavior if needed; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ChatHomePage.tsx",
+          "operation": "modify",
+          "description": "Adopt ResponsiveChatLayout, wire list selection to thread display, and implement narrow-screen navigation (e.g., back button to conversation list). Ensure entry points for New DM and Create Group are visible and clear."
+        },
+        {
+          "path": "frontend/src/components/material/AppShell.tsx",
+          "operation": "modify",
+          "description": "Ensure the top app bar supports contextual actions (New DM, New Group) and displays app title/logo in Android-6-like flat Material styling. Use shadcn-ui Button components where appropriate; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add polling-based message updates and manual refresh controls without using real-time sockets.",
+      "acceptanceCriteria": [
+        "New incoming messages appear after a reasonable polling interval while viewing a thread",
+        "User can manually refresh a thread/conversation list",
+        "Implementation does not use WebSockets or socket.io"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/chat/hooks/polling.ts",
+          "operation": "create",
+          "description": "Centralize polling interval constants and helpers for enabling/disabling polling based on app visibility and active thread selection."
+        },
+        {
+          "path": "frontend/src/chat/hooks/useDirectMessages.ts",
+          "operation": "modify",
+          "description": "Add React Query refetchInterval-based polling for the active DM thread and expose a manual refresh method for the UI (e.g., query.refetch)."
+        },
+        {
+          "path": "frontend/src/chat/hooks/useGroupChats.ts",
+          "operation": "modify",
+          "description": "Add polling for the active group thread and manual refresh for group list/thread using React Query refetch APIs, avoiding any WebSocket usage."
+        },
+        {
+          "path": "frontend/src/components/chat/ThreadView.tsx",
+          "operation": "modify",
+          "description": "Add a visible manual refresh control in the thread UI and ensure the thread updates after polling while the thread is open. Use shadcn-ui Button; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/chat/ConversationList.tsx",
+          "operation": "modify",
+          "description": "Add a manual refresh control for the conversation list and ensure list data refetches on demand and periodically as appropriate."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Include required generated static assets (app icon/logo and Android-6-style background) and render them from frontend static files.",
+      "acceptanceCriteria": [
+        "Generated images are present under frontend/public/assets/generated",
+        "App uses the generated icon/logo in the header/login screen (where appropriate) without loading through the backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/app-icon.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated flat Material-style app icon asset at frontend/public/assets/generated/app-icon.dim_512x512.png and ensure it is committed as a static frontend asset."
+        },
+        {
+          "path": "frontend/public/assets/generated/material-bg.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated subtle flat geometric background asset at frontend/public/assets/generated/material-bg.dim_1920x1080.png and ensure it is committed as a static frontend asset."
+        },
+        {
+          "path": "frontend/src/components/material/AppShell.tsx",
+          "operation": "modify",
+          "description": "Render the generated app icon (frontend/public/assets/generated/app-icon.dim_512x512.png) in the app bar/header area as a static asset (no backend loading)."
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Render the generated app icon (frontend/public/assets/generated/app-icon.dim_512x512.png) and optionally the background image (frontend/public/assets/generated/material-bg.dim_1920x1080.png) in the login/register experience using static frontend assets (no backend loading)."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Apply the generated background image (frontend/public/assets/generated/material-bg.dim_1920x1080.png) in a subtle, Android-6-style way (e.g., app background or auth screens) while keeping the flat Material theme consistent."
+        }
+      ]
+    }
+  ]
+}

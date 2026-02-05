@@ -1,0 +1,15 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, authentication flow using a properly named RootComponent, and conditional rendering for login/register/chat screens based on user state.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including user profiles, direct messages, and group chats with automatic cache invalidation and polling support.",
+  "frontend/src/pages/LoginPage.tsx": "Login screen with Internet Identity authentication, featuring Material Design styling and the app icon/background assets.",
+  "frontend/src/pages/RegisterPage.tsx": "Profile creation screen where users set their username and display name after first login with Internet Identity.",
+  "frontend/src/pages/ChatHomePage.tsx": "Main chat interface with responsive layout managing conversation list and thread view with mobile/desktop navigation.",
+  "frontend/src/components/material/AppShell.tsx": "Material Design app shell with top app bar, logo, user info, and logout functionality using Tailwind v3 classes.",
+  "frontend/src/components/chat/ConversationList.tsx": "Sidebar component displaying all conversations (DMs and groups) with action buttons for creating new chats and manual refresh, updated with Tailwind v3 classes.",
+  "frontend/src/components/chat/NewDmDialog.tsx": "Dialog for starting a new direct message by entering a recipient's Principal ID.",
+  "frontend/src/components/chat/CreateGroupDialog.tsx": "Dialog for creating a new group chat with a custom name.",
+  "frontend/src/components/chat/ThreadView.tsx": "Message thread view component displaying messages, handling send functionality, and supporting both DM and group conversations with polling, updated with Tailwind v3 classes.",
+  "frontend/src/components/chat/AddParticipantDialog.tsx": "Dialog for adding new participants to group chats by Principal ID with authorization error handling.",
+  "frontend/src/index.css": "Global styles with Android 6 Material Design color system using OKLCH, Roboto font, and Material elevation shadows for light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with Material Design tokens, Roboto font family, custom shadows, and minimal border radius for flat UI aesthetic."
+}

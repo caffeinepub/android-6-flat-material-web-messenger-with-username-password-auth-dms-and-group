@@ -1,0 +1,183 @@
+{
+  "kind": "build_request",
+  "title": "Android 6 (flat Material) web messenger with username/password auth, DMs, and group chats",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create an Android 6-inspired flat (Material Design) UI theme and apply it consistently across the app (colors, typography, spacing, surfaces, buttons, inputs, app bars, list items). Use English for all user-facing text.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "create a website in android 6 design (flat ui)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App uses a cohesive flat Material-style theme across all screens",
+        "Primary navigation and key actions use Material-like components (app bar, FAB or prominent action button, card/list styling)",
+        "All visible UI copy is in English"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement username/password registration and login, including a frontend auth flow (Register + Login screens), and maintain an authenticated session for subsequent API calls.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "it should have a way to login with a username and password, and a way to register"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can register with a username and password and then log in with those credentials",
+        "Frontend persists an auth session across page refresh (until logout)",
+        "Logout clears the stored session and returns the user to the Login screen",
+        "Incorrect credentials show an English error message and do not authenticate the user"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "On the backend, store user accounts with secure password handling (salted password hashing) and enforce unique usernames.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "login with a username and password, and a way to register"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Registering an existing username fails with a clear error",
+        "Passwords are not stored in plaintext (store salted hash only)",
+        "Backend APIs that require authentication reject invalid/expired sessions"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement direct messages (DM): allow a logged-in user to find/select another user by username and exchange messages in a 1:1 conversation view.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "dm"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can start/open a DM with another username",
+        "User can send a DM message and see it appear in the thread",
+        "User can view message history for a DM thread",
+        "DM list shows recent conversations and last message preview/time (as available)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement group chats: allow a logged-in user to create a group chat, add members by username, and send/receive messages within the group thread.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "create group chats"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can create a group chat with a name",
+        "User can add at least one other user to a group by username",
+        "Group members can send messages and view group message history",
+        "Non-members cannot access a group’s messages"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add a chat home layout: left pane (or top tab on narrow screens) showing conversations (DMs and groups) and a main pane for the selected thread, with responsive behavior for mobile and desktop.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "create a website ... to text my friends"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On wide screens, conversation list and active thread are visible together",
+        "On narrow screens, user can navigate between conversation list and thread view",
+        "Conversation list distinguishes DM vs Group (label/icon)",
+        "There is a clear entry point to start a new DM and to create a new group"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement message fetching updates without real-time sockets by using periodic polling/refetching and manual refresh controls in the UI.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "text my friends"
+        ]
+      },
+      "acceptanceCriteria": [
+        "New incoming messages appear after a reasonable polling interval while viewing a thread",
+        "User can manually refresh a thread/conversation list",
+        "Implementation does not use WebSockets or socket.io"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Generate and include required static image assets (logo/app icon and minimal Android-6-style background) and render them from frontend static assets.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "android 6 design (flat ui)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are present under frontend/public/assets/generated",
+        "App uses the generated icon/logo in the header/login screen (where appropriate) without loading through the backend"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must be a single Motoko actor in backend/main.mo (no extra backend services).",
+    "Do not use WebSockets, socket.io, or other real-time transports; use polling/refetch.",
+    "Do not edit files under frontend/src/components/ui or any frontend immutable paths listed in SYSTEM_CONTEXT.",
+    "No third-party authentication providers; implement the requested username/password flow within the app."
+  ],
+  "nonGoals": [
+    "End-to-end encryption or advanced cryptographic messaging guarantees",
+    "File/image attachments, voice notes, or video calls",
+    "Push notifications or email/SMS integrations",
+    "Message reactions, read receipts, typing indicators, or message search"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Flat Material-style app icon with chat bubble motif (app-icon.dim_512x512.png)",
+      "Subtle flat geometric background pattern in Android 6 Material style (material-bg.dim_1920x1080.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

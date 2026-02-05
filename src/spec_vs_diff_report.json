@@ -1,0 +1,121 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T21:38:35.282Z",
+  "summary": "The diff implements a Material-styled chat UI shell, DM and group messaging primitives with polling via React Query, and uses Internet Identity + access-control initialization for authentication/authorization. However, the requested username/password auth (with salted hashing, unique usernames, and session handling) is not implemented; user discovery and chat participant selection are based on Principal IDs rather than usernames; conversation list/history metadata and some refresh behaviors are stubbed; and required generated image assets are referenced but not evidenced as added under the specified path in the provided diff summary.",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Implement username/password registration and login (Register + Login screens), persist an authenticated session across refresh until logout, and show English errors on incorrect credentials.",
+      "reason": "Frontend auth uses Internet Identity (third-party) rather than an in-app username/password flow. RegisterPage creates a profile (username/displayName) after II login, not password registration/login, and there is no incorrect-credential handling for username/password.",
+      "evidence": [
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/pages/RegisterPage.tsx",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Backend stores user accounts with secure password handling (salted password hashing) and enforces unique usernames; authenticated APIs reject invalid/expired sessions.",
+      "reason": "Backend shows userProfiles keyed by Principal and AccessControl permission checks, but no username/password account storage, no salted hashing, no unique-username enforcement, and no session issuance/validation tied to username/password.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "DMs: allow a logged-in user to find/select another user by username and exchange messages; DM list shows recent conversations and last message preview/time (as available).",
+      "reason": "New DM flow requests a recipient Principal ID, not username. Conversation list is local state only and does not show last message preview/time from backend; message timestamps in backend are set to 0 in shown code.",
+      "evidence": [
+        "frontend/src/components/chat/NewDmDialog.tsx",
+        "frontend/src/components/chat/ConversationList.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Group chats: create a group, add members by username, members can send/view history, and non-members cannot access group messages.",
+      "reason": "AddParticipantDialog adds participants by Principal ID, not username. Backend group authorization/membership enforcement cannot be confirmed from the truncated backend file; UI and hooks reference membership but the shown code does not evidence the non-member access restriction requirement.",
+      "evidence": [
+        "frontend/src/components/chat/AddParticipantDialog.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Manual refresh controls for both thread and conversation list; new messages appear via polling/refetching without WebSockets.",
+      "reason": "ThreadView provides manual refresh and polling (refetchInterval), but ConversationList's refresh handler only logs to console and does not refetch persisted conversations.",
+      "evidence": [
+        "frontend/src/components/chat/ThreadView.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/components/chat/ConversationList.tsx"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Generate and include required static image assets under frontend/public/assets/generated and render them from frontend static assets.",
+      "reason": "UI references /assets/generated/app-icon.dim_512x512.png and /assets/generated/material-bg.dim_1920x1080.png, but the diff summary does not show any added files under frontend/public/assets/generated (assets may be among omitted files, but there is no visible evidence here).",
+      "evidence": [
+        "frontend/src/components/material/AppShell.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/RegisterPage.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Internet Identity (third-party) authentication flow instead of the requested in-app username/password authentication.",
+      "reason": "BuildRequest explicitly forbids third-party authentication providers and requires username/password registration/login within the app.",
+      "evidence": [
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "Access-control initialization via a secret 'caffeineAdminToken' URL parameter and _initializeAccessControlWithSecret call.",
+      "reason": "Not requested in the BuildRequest; introduces an admin-token mechanism beyond the specified auth/session model.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/utils/urlParams.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Participant selection by Principal ID for DMs and group membership management.",
+      "reason": "BuildRequest requires selecting users and adding members by username, not Principal IDs.",
+      "evidence": [
+        "frontend/src/components/chat/NewDmDialog.tsx",
+        "frontend/src/components/chat/AddParticipantDialog.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.78,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/chat/AddParticipantDialog.tsx",
+    "frontend/src/components/chat/ConversationList.tsx",
+    "frontend/src/components/chat/CreateGroupDialog.tsx",
+    "frontend/src/components/chat/NewDmDialog.tsx",
+    "frontend/src/components/chat/ThreadView.tsx",
+    "frontend/src/components/material/AppShell.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/ChatHomePage.tsx",
+    "frontend/src/pages/LoginPage.tsx",
+    "frontend/src/pages/RegisterPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

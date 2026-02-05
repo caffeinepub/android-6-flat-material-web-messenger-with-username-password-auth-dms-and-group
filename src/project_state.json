@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a flat Android 6 (Material Design) styled web messaging app for texting friends, with user registration/login, direct messages, and group chats.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Flat Material-style app icon with chat bubble motif (app-icon.dim_512x512.png)\n- Subtle flat geometric background pattern in Android 6 Material style (material-bg.dim_1920x1080.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-an-android-6-inspired-flat-material-design-ui-theme-and-apply-it-consistently-across-the-app-colors-typography-spacing-surfaces-buttons-inputs-app-bars-list-items-use-english-for-all-user-facing-text",
+      "title": "Create an Android 6-inspired flat (Material Design) UI theme and apply it consistently across the app (colors, typography, spacing, surfaces, buttons, inputs, app bars, list items). Use English for all user-facing text.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-username-password-registration-and-login-including-a-frontend-auth-flow-register-login-screens-and-maintain-an-authenticated-session-for-subsequent-api-calls",
+      "title": "Implement username/password registration and login, including a frontend auth flow (Register + Login screens), and maintain an authenticated session for subsequent API calls.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-direct-messages-dm-allow-a-logged-in-user-to-find-select-another-user-by-username-and-exchange-messages-in-a-1-1-conversation-view",
+      "title": "Implement direct messages (DM): allow a logged-in user to find/select another user by username and exchange messages in a 1:1 conversation view.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-group-chats-allow-a-logged-in-user-to-create-a-group-chat-add-members-by-username-and-send-receive-messages-within-the-group-thread",
+      "title": "Implement group chats: allow a logged-in user to create a group chat, add members by username, and send/receive messages within the group thread.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-chat-home-layout-left-pane-or-top-tab-on-narrow-screens-showing-conversations-dms-and-groups-and-a-main-pane-for-the-selected-thread-with-responsive-behavior-for-mobile-and-desktop",
+      "title": "Add a chat home layout: left pane (or top tab on narrow screens) showing conversations (DMs and groups) and a main pane for the selected thread, with responsive behavior for mobile and desktop.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-message-fetching-updates-without-real-time-sockets-by-using-periodic-polling-refetching-and-manual-refresh-controls-in-the-ui",
+      "title": "Implement message fetching updates without real-time sockets by using periodic polling/refetching and manual refresh controls in the UI.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-include-required-static-image-assets-logo-app-icon-and-minimal-android-6-style-background-and-render-them-from-frontend-static-assets",
+      "title": "Generate and include required static image assets (logo/app icon and minimal Android-6-style background) and render them from frontend static assets.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create website UI styled like Android 6 (flat/Material Design)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Implement user authentication: register and login with username and password",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Support direct messaging (DM) between users",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Support creating and using group chats",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "On the backend, store user accounts with secure password handling (salted password hashing) and enforce unique usernames.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Android 6 (flat Material) web messenger with username/password auth, DMs, and group chats",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

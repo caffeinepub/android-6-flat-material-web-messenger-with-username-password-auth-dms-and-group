@@ -1,0 +1,154 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-an-android-6-inspired-flat-material-design-ui-theme-and-apply-it-consistently-across-the-app-colors-typography-spacing-surfaces-buttons-inputs-app-bars-list-items-use-english-for-all-user-facing-text",
+      "featureTitle": "Create an Android 6-inspired flat (Material Design) UI theme and apply it consistently across the app (colors, typography, spacing, surfaces, buttons, inputs, app bars, list items). Use English for all user-facing text.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/material/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-username-password-registration-and-login-including-a-frontend-auth-flow-register-login-screens-and-maintain-an-authenticated-session-for-subsequent-api-calls",
+      "featureTitle": "Implement username/password registration and login, including a frontend auth flow (Register + Login screens), and maintain an authenticated session for subsequent API calls.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/RegisterPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-direct-messages-dm-allow-a-logged-in-user-to-find-select-another-user-by-username-and-exchange-messages-in-a-1-1-conversation-view",
+      "featureTitle": "Implement direct messages (DM): allow a logged-in user to find/select another user by username and exchange messages in a 1:1 conversation view.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/chat/ConversationList.tsx",
+        "frontend/src/components/chat/NewDmDialog.tsx",
+        "frontend/src/components/chat/ThreadView.tsx",
+        "frontend/src/pages/ChatHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-group-chats-allow-a-logged-in-user-to-create-a-group-chat-add-members-by-username-and-send-receive-messages-within-the-group-thread",
+      "featureTitle": "Implement group chats: allow a logged-in user to create a group chat, add members by username, and send/receive messages within the group thread.",
+      "files": [
+        "frontend/src/components/chat/ConversationList.tsx",
+        "frontend/src/components/chat/CreateGroupDialog.tsx",
+        "frontend/src/components/chat/ThreadView.tsx",
+        "frontend/src/pages/ChatHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-chat-home-layout-left-pane-or-top-tab-on-narrow-screens-showing-conversations-dms-and-groups-and-a-main-pane-for-the-selected-thread-with-responsive-behavior-for-mobile-and-desktop",
+      "featureTitle": "Add a chat home layout: left pane (or top tab on narrow screens) showing conversations (DMs and groups) and a main pane for the selected thread, with responsive behavior for mobile and desktop.",
+      "files": [
+        "frontend/src/components/material/AppShell.tsx",
+        "frontend/src/pages/ChatHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-message-fetching-updates-without-real-time-sockets-by-using-periodic-polling-refetching-and-manual-refresh-controls-in-the-ui",
+      "featureTitle": "Implement message fetching updates without real-time sockets by using periodic polling/refetching and manual refresh controls in the UI.",
+      "files": [
+        "frontend/src/components/chat/ConversationList.tsx",
+        "frontend/src/components/chat/ThreadView.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-and-include-required-static-image-assets-logo-app-icon-and-minimal-android-6-style-background-and-render-them-from-frontend-static-assets",
+      "featureTitle": "Generate and include required static image assets (logo/app icon and minimal Android-6-style background) and render them from frontend static assets.",
+      "files": [
+        "frontend/src/components/material/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
